@@ -1,7 +1,7 @@
 ﻿using System;
 using static System.Console;
 
-namespace InventoryAppV2
+namespace ConsoleApp.Inventory
 {
     public class Menu
     {
@@ -26,7 +26,7 @@ namespace InventoryAppV2
                 if (i == SelectedIndex)
                 {
                     ForegroundColor = ConsoleColor.Black;
-                    BackgroundColor = ConsoleColor.Red;
+                    BackgroundColor = ConsoleColor.Green;
                 }
                 else
                 {

@@ -1,7 +1,7 @@
 ﻿using System;
-using InventoryAppV2.Menus;
 
-namespace InventoryAppV2
+
+namespace ConsoleApp.Inventory
 {
     class Program
 {

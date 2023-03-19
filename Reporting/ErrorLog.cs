@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CsvHelper;
-using InventoryAppV2.Menus;
+using ConsoleApp.Inventory;
 
-namespace InventoryAppV2.Reporting
+namespace ConsoleApp.Inventory
 {
     class ErrorLog
     {

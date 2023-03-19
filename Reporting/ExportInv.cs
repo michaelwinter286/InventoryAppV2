@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryAppV2.Reporting
+namespace ConsoleApp.Inventory
 {
     internal class ExportInv
     {

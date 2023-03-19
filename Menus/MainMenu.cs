@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using Serilog;
 using System.Text;
 using System.Threading.Tasks;
-using InventoryAppV2.Reporting;
-using InventoryAppV2.Menus;
+using static System.Console;
 
 
-namespace InventoryAppV2.Menus
+
+
+
+namespace ConsoleApp.Inventory
 
 {
   
@@ -25,9 +26,8 @@ namespace InventoryAppV2.Menus
         public static void RunMainMenu()
 
         {
-            Logos.TitleLogo();
-            Console.WriteLine();
-            string prompt = "Use the UP and DOWN arrow keys to select an option and then press enter. \n";
+            
+            string prompt = "Please use the UP (↑) and DOWN (↓) arrow keys to select an option and then press enter. \n";
             string[] options =
             {
                 "Add New Item",
@@ -35,6 +35,7 @@ namespace InventoryAppV2.Menus
                 "View an Item",
                 "Remove Item from Inventory",
                 "Reports",
+                "Program Information",
                 "Exit"
             };
 
@@ -46,9 +47,13 @@ namespace InventoryAppV2.Menus
                 
                 case 4:
                     ErrorLog.Error();
-                break;
-                
+                    break;
+
                 case 5:
+                    AboutMyProgram();
+                    break;
+
+                case 6:
                     Exit();
                     break;
             }
@@ -89,10 +94,12 @@ namespace InventoryAppV2.Menus
         //    _ = PepperList.SaveAllPeppersToTextFile(pepperService);
         //}
 
-        //private static void AboutThisApp()
-        //{
-        //    AppInfo.PrintAboutThisApp();
-        //}
+        private static void AboutMyProgram()
+        {
+            ProgramInfo.AboutMyProgram();
+
+
+        }
 
         private static void Exit()
         {
