@@ -59,41 +59,7 @@ namespace ConsoleApp.Inventory
             }
         }
 
-        //private static void ViewAllPeppers(PepperService pepperService)
-        //{
-        //    _ = PepperList.ListAllPeppersInDatabase(pepperService);
-        //}
-
-        //private static void ViewPeppersByHeatClass(PepperService pepperService)
-        //{
-        //    PepperByHeatClassList.DisplayHeatClassMenu();
-        //}
-
-        //private static void ViewAPepper(PepperService pepperService)
-        //{
-        //    _ = PepperView.ViewAPepper(pepperService);
-        //}
-
-        //private static void AddAPepper(PepperService pepperService)
-        //{
-        //    _ = PepperCreate.CreateNewPepper(pepperService);
-        //}
-
-        //private static void UpdateAPepper(PepperService pepperService)
-        //{
-        //    _ = PepperUpdate.UpdateAPepper(pepperService);
-        //}
-
-        //private static void RemoveAPepper(PepperService pepperService)
-        //{
-        //    _ = PepperDelete.RemoveAPepper(pepperService);
-        //}
-
-        //private static void SaveListOfPeppersToATextFile(PepperService pepperService)
-        //{
-        //    _ = PepperList.SaveAllPeppersToTextFile(pepperService);
-        //}
-
+       
         private static void AboutMyProgram()
         {
             ProgramInfo.AboutMyProgram();
@@ -113,7 +79,6 @@ namespace ConsoleApp.Inventory
             {
                 case 0:
                     Console.WriteLine("\nHave a Great rest of your Day!!");
-                    //Log.CloseAndFlush();
                     Environment.Exit(0);
                     break;
                 case 1:
@@ -123,7 +88,7 @@ namespace ConsoleApp.Inventory
         }
 
         // Recycles to the main menu when user is finished
-        public static void StartOver()
+        public static void MenuReturn()
         {
             Console.WriteLine("\nPress enter to return to the main menu.");
             Console.ReadKey(true);
