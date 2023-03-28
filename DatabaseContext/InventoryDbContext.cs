@@ -1,15 +1,15 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using InventorySystem.Entities;
+using static InventorySystem.Entities.DemoInventory;
 
 namespace InventorySystem.DatabaseContext
 {
     public class InvContext : DbContext
     {
-        public InvContext(DbContextOptions<InvContext> options) : base(options)
-        {
-        }
-
-        public DbSet<Inventory> Inventories { get; set; }
+        
+        public DbSet<Item> Items { get; set; }
+        //public DbSet<Livestock> Livestocks { get; set; }
 
         private readonly string? _dbPath;
 
@@ -33,10 +33,15 @@ namespace InventorySystem.DatabaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            foreach (var pepper in defaultInventory)
+            foreach (var item in demoInventory)
             {
-                modelBuilder.Entity<Inventory>().HasData(pepper.Value);
+                modelBuilder.Entity<Item>().HasData(item.Value);
+                
             }
+            //foreach (var livestock in startingInventory)
+            //{
+            //    modelBuilder.Entity<Livestock>().HasData(livestock.Value);
+            //}
         }
     }
 }

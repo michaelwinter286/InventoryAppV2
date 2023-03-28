@@ -1,13 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InventorySystem.Entities;
 
 namespace InventorySystem.Repositories
 {
     public interface IItemRepository
     {
-        Task<List<Item?>> GetAllItemsAsync();
-    }
+        Task<List<Item?>> GetAllItems();
+        Task<Item?> GetItemById(Guid itemId);
+        Task<Item?> GetItemByName(string itemName);
+    };
+
+   
+
+
+
+
+
+
+
 }
