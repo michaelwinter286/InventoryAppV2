@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace InventorySystem.Entities
 {
-    public class Livestock
+    public class Livestock : ILivestock
     {
        
-            public Guid AnimalId { get; set; }
-            public string? AnimalTag { get; set; }
-            public string? AnimalName { get; set; }
-            public string? AnimalType { get; set; }
-            public string? AnimalBreed { get; set; }
-            public string? AnimalDob { get; set; }
-            public string? AnimalDos { get; set; }
+        public Guid LivestockId { get; set; }
+        public string? LivestockTag { get; set; }
+        public string? LivestockName { get; set; }
+        public string? LivestockType { get; set; }
+        public string? LivestockBreed { get; set; }
+        public string? LivestockDob { get; set; }
+        public string? LivestockDos { get; set; }
+        public string? LivestockComments { get; set; }
         
     }
 }

@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using CsvHelper;
 using ConsoleApp.Inventory;
+using Serilog;
 
-namespace ConsoleApp.Inventory
+
+namespace InventorySystem
 {
     class ErrorLog
     {
@@ -37,13 +39,8 @@ namespace ConsoleApp.Inventory
                 Logos.TitleLogo();
                 
                 Console.WriteLine("\n\n\n So.. Currently you have not had any errors to log. Congrats! But unfortunitly you have just created one! HAHA! Please run Error Log again to view. Press any key to return to Main Menu.\n\n" + "Error:" + ex);
-
-                StreamWriter sw = new StreamWriter("ErrorLog.txt", true);
-                DateTime errorDate = DateTime.Now;
-
-                sw.WriteLine(errorDate + "\n" + ex + "\n");
-                sw.Flush();
-                sw.Close();
+                Log.Error("File Error: File Not Found (ErrorLog). Error generates file creation.");
+                Log.CloseAndFlush();
                 Console.Beep(1000, 1000); // Thanks Dave!!
                 Console.ReadKey();
                 MainMenu.RunMainMenu();

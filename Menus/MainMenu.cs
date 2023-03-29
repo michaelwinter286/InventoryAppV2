@@ -1,14 +1,13 @@
 ﻿using System;
+using InventorySystem.Menus;
 using Serilog;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
+using Console = Colorful.Console;
 
 
-
-
-
-namespace ConsoleApp.Inventory
+namespace InventorySystem
 
 {
   
@@ -32,7 +31,7 @@ namespace ConsoleApp.Inventory
             {
                 "Add New Item",
                 "Update Existing Item/Animal",
-                "View an Item",
+                "View an Item's details",
                 "Remove Item from Inventory",
                 "Reports",
                 "Program Information",
@@ -46,11 +45,11 @@ namespace ConsoleApp.Inventory
             {
                 
                 case 4:
-                    ErrorLog.Error();
+                    ReportingMenu.RunReportMenu();
                     break;
 
                 case 5:
-                    AboutMyProgram();
+                    ProgramInfo.AboutMyProgram();
                     break;
 
                 case 6:
@@ -60,12 +59,12 @@ namespace ConsoleApp.Inventory
         }
 
        
-        private static void AboutMyProgram()
-        {
-            ProgramInfo.AboutMyProgram();
+        //private static void AboutMyProgram()
+        //{
+        //    ProgramInfo.AboutMyProgram();
 
 
-        }
+        //}
 
         private static void Exit()
         {

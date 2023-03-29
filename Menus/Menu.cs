@@ -1,7 +1,7 @@
 ﻿using System;
 using static System.Console;
 
-namespace ConsoleApp.Inventory
+namespace InventorySystem
 {
     public class Menu
     {

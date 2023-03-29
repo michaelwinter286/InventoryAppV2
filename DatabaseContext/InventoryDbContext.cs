@@ -1,47 +1,41 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using InventorySystem.Entities;
-using static InventorySystem.Entities.DemoInventory;
+using static InventorySystem.Entities.DemoItem;
+using static InventorySystem.Entities.DemoLivestock;
+
 
 namespace InventorySystem.DatabaseContext
 {
-    public class InvContext : DbContext
+    public class InventoryContext : DbContext
     {
         
         public DbSet<Item> Items { get; set; }
-        //public DbSet<Livestock> Livestocks { get; set; }
+        public DbSet<Livestock> Livestocks { get; set; }
 
-        private readonly string? _dbPath;
+        public string DbPath { get; }
 
-        public InvContext()
+        public InventoryContext()
         {
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var parentDirectory = Directory.GetParent(baseDirectory);
-
-            while (parentDirectory != null && parentDirectory.Name != "InventorySystem")
-            {
-                parentDirectory = Directory.GetParent(parentDirectory.FullName);
-            }
-
-            _dbPath = parentDirectory != null ? Path.Combine(parentDirectory.FullName, "inventory.db") : Path.Combine(baseDirectory, "inventory.db");
-
-            Database.EnsureCreated();
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            DbPath = Path.Join(path, "iventory.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite($"Data Source={_dbPath}");
+            => options.UseSqlite($"Data Source={DbPath}");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            foreach (var item in demoInventory)
+            foreach (var item in demoItem)
             {
                 modelBuilder.Entity<Item>().HasData(item.Value);
                 
             }
-            //foreach (var livestock in startingInventory)
-            //{
-            //    modelBuilder.Entity<Livestock>().HasData(livestock.Value);
-            //}
+            foreach (var livestock in demoLivestock)
+            {
+                modelBuilder.Entity<Livestock>().HasData(livestock.Value);
+            }
         }
     }
 }

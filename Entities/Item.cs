@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace InventorySystem.Entities
 {
-    public class Item
+    public class Item : IItem
     {
         public Guid ItemId { get; set; }
         public string? ItemName { get; set; }
-        public int ItemAmt { get; set; }
+        public int ItemAmount { get; set; }
         public int ItemPar { get; set; }
     }
 

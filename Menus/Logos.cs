@@ -7,7 +7,7 @@ using System.Drawing;
 using Colorful;
 using Console = Colorful.Console;
 
-namespace ConsoleApp.Inventory
+namespace InventorySystem
 {
     internal class Logos
     {
