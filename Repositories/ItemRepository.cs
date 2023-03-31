@@ -13,24 +13,24 @@ namespace InventorySystem.Repositories
             _context = new InventoryContext();
         }
 
-        public async Task<List<Item>> GetAllItems()
+        public async Task<List<Item>> GetAllItemsAsync()
         {
             var items = await _context.Items.ToListAsync();
 
             return items.OrderBy(i => i.ItemName).ToList();
         }
 
-        public async Task<Item?> GetItemByName(string itemName)
+        public async Task<Item?> GetItemByNameAsync(string itemName)
         {
             return await _context.Items.FirstOrDefaultAsync(i => i.ItemName == itemName);
         }
                 
-        public async Task<Item?> GetItemById(Guid itemId)
+        public async Task<Item?> GetItemByIdAsync(Guid itemId)
         {
             return await _context.Items.FindAsync(itemId);
         }
 
-        public async Task<List<Item>> GetLowItems()
+        public async Task<List<Item>> GetLowItemsAsync()
         {
             using (var context = new InventoryContext())
             {
@@ -51,13 +51,13 @@ namespace InventorySystem.Repositories
                 return missingItems.OrderBy(x => x.ItemName).ToList(); ;
             }
         }
-        public async Task AddItem(Item addItem)
+        public async Task AddItemAsync(Item addItem)
         {
             await _context.Items.AddAsync(addItem);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateItem(Item updateItem)
+        public async Task UpdateItemAsync(Item updateItem)
         {
              
             var currentItem = await _context.Items.SingleOrDefaultAsync(i => i.ItemId == updateItem.ItemId);
@@ -70,7 +70,7 @@ namespace InventorySystem.Repositories
             _context.Update(currentItem);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteItem(Item deleteItem)
+        public async Task DeleteItemAsync(Item deleteItem)
         {
             var deletedItem = await _context.Items.SingleOrDefaultAsync(i => i.ItemName == deleteItem.ItemName);
 

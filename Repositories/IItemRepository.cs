@@ -4,14 +4,14 @@ namespace InventorySystem.Repositories
 {
     public interface IItemRepository
     {
-        Task<List<Item>> GetAllItems();
-        Task<List<Item>> GetEmptyItems();
-        Task<List<Item>> GetLowItems();
-        Task<Item?> GetItemById(Guid itemId);
-        Task<Item?> GetItemByName(string itemName);
-        Task AddItem(Item addItem);
-        Task UpdateItem(Item updateItem);
-        Task DeleteItem(Item deleteItem);
+        Task<List<Item>> GetAllItemsAsync();
+        //Task<List<Item>> GetEmptyItemsAsync();
+        Task<List<Item>> GetLowItemsAsync();
+        Task<Item?> GetItemByIdAsync(Guid itemId);
+        Task<Item?> GetItemByNameAsync(string itemName);
+        Task AddItemAsync(Item addItem);
+        Task UpdateItemAsync(Item updateItem);
+        Task DeleteItemAsync(Item deleteItem);
         void Dispose();
         
     };

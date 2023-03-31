@@ -32,7 +32,7 @@ namespace InventorySystem.Actions
 
             try
             {
-                var currentItem = await itemService.GetItemByNameService(updateItem.ItemName!);
+                var currentItem = await itemService.GetItemByNameServiceAsync(updateItem.ItemName!);
 
                 if (currentItem == null)
                 {
@@ -104,7 +104,7 @@ namespace InventorySystem.Actions
                     }
                 }
 
-                await itemService.UpdateItemService(currentItem);
+                await itemService.UpdateItemServiceAsync(currentItem);
                 WriteLine($"You updated '{currentItem.ItemName}'within your current inventory.");
                 MainMenu.Start();
             }

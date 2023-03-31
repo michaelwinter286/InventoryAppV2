@@ -8,7 +8,7 @@ namespace InventorySystem
     static void Main(string[] args)
     {
         Console.Title = "Program";
-        ErrorLogger.StartLogger();
+        Logger.StartLogger();
         Logos.TitleLogo();
         Console.WriteLine();
         Console.WriteLine("What can we help with today? (Press any Key to continue.)");

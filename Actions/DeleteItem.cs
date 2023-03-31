@@ -36,7 +36,7 @@ namespace InventorySystem.Actions
                
                 try
                 {
-                    await itemService.DeleteItemService(deleteItem);
+                    await itemService.DeleteItemServiceAsync(deleteItem);
                     WriteLine($"{deleteItem.ItemName} has been removed from Inventory.");
                     MainMenu.Start();
                 }

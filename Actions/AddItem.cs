@@ -43,7 +43,7 @@ namespace InventorySystem.Actions
                 
                 while (true)
                 {
-                    WriteLine("How much of the" + itemName + "do you have?");
+                    WriteLine("How much of the " + itemName + " do you have?");
                     string? userShuMinInput = ReadLine();
 
                     if (int.TryParse(userShuMinInput, out shuMinValue))
@@ -61,7 +61,7 @@ namespace InventorySystem.Actions
                 
                 while (true)
                 {
-                    WriteLine("What is the minimum amount of" + itemName + "that you would like to keep in stock?");
+                    WriteLine("What is the minimum amount of " + itemName + " that you would like to keep in stock?");
                     string? userShuMaxInput = ReadLine();
 
                     if (int.TryParse(userShuMaxInput, out int shuMaxValue))
@@ -70,7 +70,7 @@ namespace InventorySystem.Actions
 
                         try
                         {
-                            await itemService.AddItemService(item);
+                            await itemService.AddItemServiceAsync(item);
                             WriteLine($"You added {item.ItemName} to the database");
                             MainMenu.Start();
                         }

@@ -1,39 +1,48 @@
 ﻿using InventorySystem.Entities;
 using InventorySystem.Repositories;
 using InventorySystem.Validators;
+using InventorySystem.DataTransferObject;
 using Serilog;
 using AutoMapper;
 using FluentValidation.Results;
-
+using System.Collections.Generic;
 
 namespace InventorySystem.Services
 {
     public class ItemService : IItemService
     {
         private readonly ItemRepository _itemRepository;
+        private readonly IMapper _mapper;
 
         public ItemService()
         {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Item, ItemDto>();
+                cfg.CreateMap<ItemDto, Item>();
+            });
+
+            _mapper = config.CreateMapper();
             _itemRepository = new ItemRepository();
         }
-        public async Task AddItemService(Item addItem)
+        public async Task AddItemServiceAsync(Item addItem)
         {
-            var currentItem = await _itemRepository.GetItemByName(addItem.ItemName!);
+            var currentItem = await _itemRepository.GetItemByNameAsync(addItem.ItemName!);
             if (currentItem?.ItemName != null)
             {
                 Log.Error($"Unable to Add New Item: Item Exists - {addItem.ItemName}");
                 throw new ArgumentException("That item already exists. Please double check Inventory.");
             }
-            var validation = new ItemValidation();
-            ValidationResult results = validation.Validate(addItem);
+            //var validation = new ItemValidation();
+            //ValidationResult results = validation.Validate(addItem);
 
-            await _itemRepository.AddItem(addItem);
+            await _itemRepository.AddItemAsync(addItem);
         }
 
 
-        public async Task UpdateItemService(Item updateItem)
+        public async Task UpdateItemServiceAsync(Item updateItem)
         {
-            var currentItem = await _itemRepository.GetItemById(updateItem.ItemId);
+            var currentItem = await _itemRepository.GetItemByIdAsync(updateItem.ItemId);
 
             if (currentItem == null)
             {
@@ -58,12 +67,12 @@ namespace InventorySystem.Services
 
             Log.Information($"Inventory has been updated: {updateItem.ItemName}");
 
-            await _itemRepository.UpdateItem(updateItem);
+            await _itemRepository.UpdateItemAsync(updateItem);
         }
 
-        public async Task DeleteItemService(Item deleteItem)
+        public async Task DeleteItemServiceAsync(Item deleteItem)
         {
-            var currentItem = await _itemRepository.GetItemByName(deleteItem.ItemName!);
+            var currentItem = await _itemRepository.GetItemByNameAsync(deleteItem.ItemName!);
 
             if (currentItem == null)
             {
@@ -72,11 +81,11 @@ namespace InventorySystem.Services
             }
 
             Log.Information($"Item was deleted from Inventory: {deleteItem.ItemName}");
-            await _itemRepository.DeleteItem(deleteItem);
+            await _itemRepository.DeleteItemAsync(deleteItem);
         }
-       public async Task<Item?> GetItemByNameService(string itemName)
+       public async Task<Item?> GetItemByNameServiceAsync(string itemName)
         {
-            var result = await _itemRepository.GetItemByName(itemName);
+            var result = await _itemRepository.GetItemByNameAsync(itemName);
 
             if (result == null)
             {
@@ -87,12 +96,18 @@ namespace InventorySystem.Services
             return result;
         }
 
+        // Calls repository method to get a list of all peppers in the database
+        public async Task<List<Item>> GetAllItemsServiceAsync()
+        {
+            var items = await _itemRepository.GetAllItemsAsync();
+            return items;
+        }
 
 
 
 
 
 
-        
+
     }
 }
