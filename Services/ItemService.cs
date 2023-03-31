@@ -2,10 +2,12 @@
 using InventorySystem.Repositories;
 using InventorySystem.Validators;
 using InventorySystem.DataTransferObject;
+using System.Globalization;
 using Serilog;
 using AutoMapper;
 using FluentValidation.Results;
-using System.Collections.Generic;
+using FluentValidation;
+
 
 namespace InventorySystem.Services
 {
@@ -25,24 +27,38 @@ namespace InventorySystem.Services
             _mapper = config.CreateMapper();
             _itemRepository = new ItemRepository();
         }
-        public async Task AddItemServiceAsync(Item addItem)
+        public async Task AddItemServiceAsync(ItemDto itemDto)
         {
-            var currentItem = await _itemRepository.GetItemByNameAsync(addItem.ItemName!);
-            if (currentItem?.ItemName != null)
+            var itemName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(itemDto.ItemName!.ToLower());
+            var result = await _itemRepository.GetItemByNameAsync(itemDto.ItemName!);
+            if (result != null)
             {
-                Log.Error($"Unable to Add New Item: Item Exists - {addItem.ItemName}");
+                Log.Error($"Unable to Add New Item: Item Exists - {itemDto.ItemName}");
                 throw new ArgumentException("That item already exists. Please double check Inventory.");
             }
-            //var validation = new ItemValidation();
-            //ValidationResult results = validation.Validate(addItem);
+            var validator = new ItemValidator();
+            ValidationResult results = validator.Validate(itemDto);
 
-            await _itemRepository.AddItemAsync(addItem);
+            if (!results.IsValid)
+            {
+                Log.Error($"Creation failed. Validation Error: {string.Join(", ", results.Errors.Select(e => e.ErrorMessage))}");
+                throw new ArgumentException($"{string.Join(", ", results.Errors.Select(e => e.ErrorMessage))}");
+            }
+
+            Log.Information(itemDto.ItemName + " has been added into Inventory.");
+
+            var item = _mapper.Map<Item>(itemDto);
+            item.ItemName = itemName;
+            
+            await _itemRepository.AddItemAsync(item);
         }
 
 
-        public async Task UpdateItemServiceAsync(Item updateItem)
+        public async Task UpdateItemServiceAsync(ItemDto itemDto)
         {
-            var currentItem = await _itemRepository.GetItemByIdAsync(updateItem.ItemId);
+            itemDto.ItemName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(itemDto.ItemName!.ToLower());
+
+            var currentItem = await _itemRepository.GetItemByIdAsync(itemDto.ItemId);
 
             if (currentItem == null)
             {
@@ -51,8 +67,8 @@ namespace InventorySystem.Services
             }
 
 
-            var validation = new ItemValidation();
-            ValidationResult results = validation.Validate(updateItem);
+            var validator = new ItemValidator();
+            ValidationResult results = validator.Validate(itemDto);
 
             if (!results.IsValid)
             {
@@ -60,19 +76,22 @@ namespace InventorySystem.Services
                 throw new ArgumentException($"{string.Join(", ", results.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            currentItem.ItemName = updateItem.ItemName;
-            currentItem.ItemAmount = updateItem.ItemAmount;
-            currentItem.ItemPar = updateItem.ItemPar;
+            currentItem.ItemName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(itemDto.ItemName.ToLower());
+            currentItem.ItemName = itemDto.ItemName;
+            currentItem.ItemAmount = itemDto.ItemAmount;
+            currentItem.ItemPar = itemDto.ItemPar;
 
 
-            Log.Information($"Inventory has been updated: {updateItem.ItemName}");
+            Log.Information($"Inventory has been updated: {itemDto.ItemName}");
 
-            await _itemRepository.UpdateItemAsync(updateItem);
+            var item = _mapper.Map<Item>(itemDto);
+
+            await _itemRepository.UpdateItemAsync(item);
         }
 
-        public async Task DeleteItemServiceAsync(Item deleteItem)
+        public async Task DeleteItemServiceAsync(ItemDto deleteItem)
         {
-            var currentItem = await _itemRepository.GetItemByNameAsync(deleteItem.ItemName!);
+            var currentItem = await _itemRepository.GetItemByNameAsync(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(deleteItem.ItemName!.ToLower()));
 
             if (currentItem == null)
             {
@@ -81,7 +100,9 @@ namespace InventorySystem.Services
             }
 
             Log.Information($"Item was deleted from Inventory: {deleteItem.ItemName}");
-            await _itemRepository.DeleteItemAsync(deleteItem);
+
+            var item = _mapper.Map<Item>(deleteItem);
+            await _itemRepository.DeleteItemAsync(item);
         }
        public async Task<Item?> GetItemByNameServiceAsync(string itemName)
         {

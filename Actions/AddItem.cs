@@ -4,6 +4,7 @@ using System.Globalization;
 using static System.Console;
 using InventorySystem.Entities;
 using InventorySystem.Services;
+using InventorySystem.DataTransferObject;
 
 
 namespace InventorySystem.Actions
@@ -15,7 +16,7 @@ namespace InventorySystem.Actions
         {
             Clear();
 
-            var item = new Item();
+            var item = new ItemDto();
             string? titleCaseItemName = "";
             int shuMinValue;
             

@@ -32,11 +32,11 @@ namespace InventorySystem
             string[] options =
             {
                 "Add New Item",
-                "Update Existing Item/Animal",
-                "View an Item's details",
-                "Remove Item from Inventory",
+                "Update Existing Item/Animal (WIP)",
+                "View an Item's details(WIP)",
+                "Remove Item from Inventory(WIP)",
                 "Reports",
-                "Program Information",
+                "Program Information(WIP)",
                 "Exit"
             };
 
@@ -57,17 +57,17 @@ namespace InventorySystem
                 //    ViewItem(_itemService);
                 //    break;
 
-                case 3:
-                    DeleteItem(_itemService);
-                    break;
+                //case 3:
+                //    DeleteItem(_itemService);
+                //    break;
 
                 case 4:
                     ReportingMenu.RunReportMenu();
                     break;
 
-                case 5:
-                    ProgramInfo.AboutMyProgram();
-                    break;
+                //case 5:
+                //    ProgramInfo.AboutMyProgram();
+                //    break;
 
                 case 6:
                     Exit();
@@ -76,12 +76,7 @@ namespace InventorySystem
         }
 
 
-        //private static void AboutMyProgram()
-        //{
-        //    ProgramInfo.AboutMyProgram();
-
-
-        //}
+       
 
         private static void Exit()
         {
@@ -113,14 +108,9 @@ namespace InventorySystem
             _ = EditItem.UpdateItem(itemService);
         }
 
-        private static void DeleteItem(ItemService itemService)
-        {
-            _ = ItemDelete.DeleteItem(itemService);
-        }
-
-        //private static void ViewItem(ItemService itemService)
+        //private static void DeleteItem(ItemService itemService)
         //{
-        //    _ = PepperView.ViewAPepper(pepperService);
+        //    _ = ItemDelete.DeleteItem(itemService);
         //}
 
         // Recycles to the main menu when user is finished

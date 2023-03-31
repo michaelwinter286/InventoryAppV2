@@ -11,7 +11,7 @@ namespace InventorySystem.Services
         //Task<Item?> GetItemByIdAsync(Guid itemId);
         Task<Item?> GetItemByNameServiceAsync(string itemName);
         Task AddItemServiceAsync(ItemDto itemDto);
-        Task UpdateItemServiceAsync(Item updateItem);
-        Task DeleteItemServiceAsync(Item deleteItem);
+        Task UpdateItemServiceAsync(ItemDto itemDto);
+        Task DeleteItemServiceAsync(ItemDto deleteItem);
     }
 }

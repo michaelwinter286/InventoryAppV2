@@ -1,16 +1,14 @@
 ﻿using System;
 using FluentValidation;
 using InventorySystem.Entities;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InventorySystem.DataTransferObject;
+
 
 namespace InventorySystem.Validators
 {
-    public class ItemValidation : AbstractValidator <Item>
+    public class ItemValidator : AbstractValidator <ItemDto>
     {
-        public ItemValidation()
+        public ItemValidator()
         {
             RuleFor(x => x.ItemName)
                 .NotEmpty()

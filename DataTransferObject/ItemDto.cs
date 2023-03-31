@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
+
 
 namespace InventorySystem.DataTransferObject
 {
@@ -22,4 +18,5 @@ namespace InventorySystem.DataTransferObject
         public int ItemAmount { get; set; }
         public int ItemPar { get; set; }
     }
+
 }

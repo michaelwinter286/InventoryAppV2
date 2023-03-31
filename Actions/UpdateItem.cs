@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Entities;
 using InventorySystem.Services;
+using InventorySystem.DataTransferObject;
 using System.Globalization;
 using Serilog;
 using static System.Console;
@@ -15,7 +16,7 @@ namespace InventorySystem.Actions
 
             WriteLine("Which Item would you like to update?");
 
-            var updateItem = new Item();
+            var updateItem = new ItemDto();
 
             string? itemName = ReadLine();
 
@@ -44,7 +45,7 @@ namespace InventorySystem.Actions
                 WriteLine($"Item was updated '{updateItem.ItemName}':");
 
                 // Update Item Name
-                WriteLine($"Current name: {currentItem.ItemName}");
+                WriteLine($"Current name: {updateItem.ItemName}");
                 WriteLine("Enter new name (or leave blank to keep current name):");
                 string? newName = ReadLine();
                 if (!string.IsNullOrEmpty(newName))
@@ -104,7 +105,7 @@ namespace InventorySystem.Actions
                     }
                 }
 
-                await itemService.UpdateItemServiceAsync(currentItem);
+                await itemService.UpdateItemServiceAsync(updateItem);
                 WriteLine($"You updated '{currentItem.ItemName}'within your current inventory.");
                 MainMenu.Start();
             }
